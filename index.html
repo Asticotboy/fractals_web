@@ -217,8 +217,8 @@
             if (e.key === 'a') {
                 xMin = -3;
                 xMax = 1;
-                xMin = -1
-                xMax = 1;
+                yMin = -1
+                yMax = 1;
                 varxScale = width / (xMax - xMin);
                 yScale = height / (yMax - yMin);
 
@@ -234,8 +234,8 @@
             if (e.key === 'z') {
                 xMin = -2;
                 xMax = 2;
-                xMin = -1
-                xMax = 1;
+                yMin = -1
+                yMax = 1;
                 xScale = width / (xMax - xMin);
                 yScale = height / (yMax - yMin);
 
@@ -294,8 +294,7 @@
         });
 
         resetButton.addEventListener('click', (e) => {
-            zoomFactor = 2;
-            zoomInput.value = 2;
+            
             if(julia == true){
                 xMin = -2;
                 xMax = 2;
