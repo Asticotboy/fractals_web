@@ -17,7 +17,6 @@
             display: block;
             width: 100vw;
             height: 100vh;
-            filter: blur(0px);
             transition: all 0.5s ease-in-out;
             transform: skew(0deg, 0deg);
             scale: 1;
@@ -78,6 +77,9 @@
         <p>Facteur de zoom : </p>
         <input type="number" id="zoom" name="zoom" min="1" value="2">
         <p> Click gauche pour zoomer </p>
+        <p>Nombre d'itérations : </p>
+        <input type="number" id="iter" name="iter" min="1" value="200">
+
         <input type="button" id="reset" name="reset" value="Reset">
     </div>
     <canvas id="canvas" width="1700" height="900"></canvas>
@@ -88,6 +90,7 @@
 
         const zoomInput = document.getElementById('zoom');
         const resetButton = document.getElementById('reset');
+        const iterInput = document.getElementById('iter');
 
 
 
@@ -95,7 +98,7 @@
         const width = canvas.width;
         const height = canvas.height;
 
-        const maxIterations = 200;
+        var maxIterations = 200;
 
         var xMin = -2;
         var xMax = 2;
@@ -303,6 +306,12 @@
 
             reset();
         });
+
+        iterInput.addEventListener('change', (e) => {
+            maxIterations = e.target.value;
+            reset();
+        });
+
 
 
 
