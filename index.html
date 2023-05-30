@@ -59,6 +59,9 @@
             padding: 0;
             color: white;
             text-align: center;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
         }
 
         p {
@@ -71,7 +74,11 @@
 <body>
     <div>
         <p>Appuyez sur la touche A pour afficher la fractale de Mandelbrot et sur la touche Z pour afficher la fractale
-            de Julia</p>
+            de Julia. </p>
+        <p>Facteur de zoom : </p>
+        <input type="number" id="zoom" name="zoom" min="1" value="2">
+        <p> Click gauche pour zoomer </p>
+        <input type="button" id="reset" name="reset" value="Reset">
     </div>
     <canvas id="canvas" width="1700" height="900"></canvas>
 
@@ -79,10 +86,16 @@
         const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
 
+        const zoomInput = document.getElementById('zoom');
+        const resetButton = document.getElementById('reset');
+
+
+
+
         const width = canvas.width;
         const height = canvas.height;
 
-        const maxIterations = 500;
+        const maxIterations = 200;
 
         var xMin = -2;
         var xMax = 2;
@@ -98,6 +111,10 @@
         var xStep = (xMax - xMin) / width;
         var yStep = (yMax - yMin) / height;
 
+
+        julia = true;
+
+        var zoomFactor = 2;
 
         const zoom = 1;
 
@@ -175,9 +192,9 @@
 
                     let iterations = 0;
                     if (type === 'mandelbrot') {
-                        iterations = getIterationsMandelbrot(xCenter + (x - width / 2) * xStep * zoom, yCenter + (y - height / 2) * yStep * zoom);
+                        iterations = getIterationsMandelbrot(xCenter + (x - width / 2) * xStep , yCenter + (y - height / 2) * yStep );
                     } else if (type === 'julia') {
-                        iterations = getIterationsJulia(xCenter + (x - width / 2) * xStep * zoom, yCenter + (y - height / 2) * yStep * zoom);
+                        iterations = getIterationsJulia(xCenter + (x - width / 2) * xStep , yCenter + (y - height / 2) * yStep );
                     }
 
                     if (iterations < maxIterations) {
@@ -198,6 +215,7 @@
         //si la touche A est appuyée
         document.addEventListener('keydown', (e) => {
             if (e.key === 'a') {
+                xMin = -3;
                 xMax = 1;
                 varxScale = width / (xMax - xMin);
                 yScale = height / (yMax - yMin);
@@ -209,8 +227,10 @@
                 yStep = (yMax - yMin) / height;
                 draw();
                 console.log('a');
+                julia = false;
             }
             if (e.key === 'z') {
+                xMin = -2;
                 xMax = 2;
                 xScale = width / (xMax - xMin);
                 yScale = height / (yMax - yMin);
@@ -222,9 +242,86 @@
                 yStep = (yMax - yMin) / height;
                 draw('julia');
                 console.log('z');
+                julia = true;
             }
 
         });
+
+        canvas.addEventListener('click', (e) => {
+            let x = e.clientX;
+            let y = e.clientY;
+
+            xCenter = (xMin + xMax) / 2;
+            yCenter = (yMin + yMax) / 2;
+
+            xStep = (xMax - xMin) / width;
+            yStep = (yMax - yMin) / height;
+
+            let xCoord = xCenter + (x - width / 2) * xStep ;
+            let yCoord = yCenter + (y - height / 2) * yStep ;
+
+
+            xMin = xCoord - (xMax - xMin) / zoomFactor;
+            xMax = xCoord + (xMax - xMin) / zoomFactor;
+            yMin = yCoord - (yMax - yMin) / zoomFactor;
+            yMax = yCoord + (yMax - yMin) / zoomFactor;
+
+            xScale = width / (xMax - xMin);
+            yScale = height / (yMax - yMin);
+
+            xCenter = (xMin + xMax) / 2;
+            yCenter = (yMin + yMax) / 2;
+
+            xStep = (xMax - xMin) / width;
+            yStep = (yMax - yMin) / height;
+
+            if(julia == true){
+                draw('julia');
+            }else{
+                draw();
+            }
+            
+        });
+
+
+        zoomInput.addEventListener('change', (e) => {
+            zoomFactor = e.target.value;
+            console.log(zoomFactor);
+        });
+
+        resetButton.addEventListener('click', (e) => {
+            zoomFactor = 2;
+            zoomInput.value = 2;
+            if(julia == true){
+                xMin = -2;
+                xMax = 2;
+            }else{
+                xMin = -3;
+                xMax = 1;
+            }
+
+            yMin = -1;
+            yMax = 1;
+
+
+
+            xScale = width / (xMax - xMin);
+            yScale = height / (yMax - yMin);
+
+            xCenter = (xMin + xMax) / 2;
+            yCenter = (yMin + yMax) / 2;
+
+            xStep = (xMax - xMin) / width;
+            yStep = (yMax - yMin) / height;
+
+            if(julia == true){
+                draw('julia');
+            }else{
+                draw();
+            }
+        });
+
+
 
     </script>
 </body>
