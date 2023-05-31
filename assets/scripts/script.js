@@ -28,7 +28,7 @@ var xStep = (xMax - xMin) / width;
 var yStep = (yMax - yMin) / height;
 
 
-julia = true;
+fractaleType = 'julia';
 
 var zoomFactor = 2;
 
@@ -78,6 +78,30 @@ function getIterationsMandelbrot(x, y) {
     return iterations;
 }
 
+function getIterationsBurningShip(x, y) {
+    let Zr = 0;
+    let Zi = 0;
+
+    let Cr = x;
+    let Ci = y;
+
+    let iterations = 0;
+
+    while (Zr * Zr + Zi * Zi < 4 && iterations < maxIterations) {
+        let ZrNew = Zr * Zr - Zi * Zi + Cr;
+        let ZiNew = 2 * Math.abs(Zr * Zi) + Ci;
+
+
+        Zr = ZrNew;
+        Zi = ZiNew;
+
+        iterations++;
+    }
+
+    return iterations;
+
+}
+
 function getIterationsJulia(x, y) {
     let Zr = x;
     let Zi = y;
@@ -102,15 +126,18 @@ function getIterationsJulia(x, y) {
 
 
 
-function draw(type = 'mandelbrot') {
+function draw() {
     for (let x = 0; x < width; x++) {
         for (let y = 0; y < height; y++) {
 
             let iterations = 0;
-            if (type === 'mandelbrot') {
+            if (fractaleType === 'mandelbrot') {
                 iterations = getIterationsMandelbrot(xCenter + (x - width / 2) * xStep, yCenter + (y - height / 2) * yStep);
-            } else if (type === 'julia') {
+            } else if ( fractaleType === 'julia') {
                 iterations = getIterationsJulia(xCenter + (x - width / 2) * xStep, yCenter + (y - height / 2) * yStep);
+            }
+            else if (fractaleType === 'burningShip') {
+                iterations = getIterationsBurningShip(xCenter + (x - width / 2) * xStep, yCenter + (y - height / 2) * yStep);
             }
 
             if (iterations < maxIterations) {
@@ -126,7 +153,7 @@ function draw(type = 'mandelbrot') {
 }
 
 
-draw("julia");
+draw();
 
 // //si la touche A est appuyée
 // document.addEventListener('keydown', (e) => {
@@ -144,7 +171,7 @@ draw("julia");
 // });
 
 function reset() {
-    if (julia == true) {
+    if (fractaleType === 'julia') {
         xMin = -2;
         xMax = 2;
     } else {
@@ -163,11 +190,7 @@ function reset() {
     xStep = (xMax - xMin) / width;
     yStep = (yMax - yMin) / height;
 
-    if (julia == true) {
-        draw('julia');
-    } else {
-        draw();
-    }
+    draw();
 }
 
 canvas.addEventListener('click', (e) => {
@@ -194,12 +217,7 @@ canvas.addEventListener('click', (e) => {
     xStep = (xMax - xMin) / width;
     yStep = (yMax - yMin) / height;
 
-    if (julia == true) {
-        draw('julia');
-    } else {
-        draw();
-    }
-
+    draw();
 });
 
 
@@ -220,11 +238,8 @@ iterInput.addEventListener('change', (e) => {
 
 
 fractaleInput.addEventListener('change', (e) => {
-    if (e.target.value == 'julia') {
-        julia = true;
-    } else {
-        julia = false;
-    }
+    fractaleType = e.target.value;
+
     reset();
 }
 );
