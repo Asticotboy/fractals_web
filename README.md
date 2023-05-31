@@ -1,6 +1,8 @@
 
 # Fractals Web
 
+![super logo](/assets/images/logo.png)
+
 
 
 
