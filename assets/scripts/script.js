@@ -5,6 +5,8 @@ const zoomInput = document.getElementById('zoom');
 const resetButton = document.getElementById('reset');
 const iterInput = document.getElementById('iter');
 const fractaleInput = document.getElementById('fractale');
+const colorLoopInput = document.getElementById('colorLoop');
+const hueInput = document.getElementById('hue');
 
 
 
@@ -243,6 +245,22 @@ fractaleInput.addEventListener('change', (e) => {
     reset();
 }
 );
+
+colorLoopInput.addEventListener('change', (e) => {
+    //si c'est coché 
+    if (e.target.checked) {
+        canvas.classList.add('colorLoop');
+    } else {
+        canvas.classList.remove('colorLoop');
+    }
+}
+);
+
+hueInput.addEventListener('input', (e) => {
+    document.documentElement.style.setProperty('--color', `${e.target.value}deg`);
+
+});
+
 
 
 

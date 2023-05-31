@@ -23,10 +23,13 @@
         <p> Click gauche pour zoomer </p>
         <p>Nombre d'itérations : </p>
         <input type="number" id="iter" name="iter" min="1" value="200">
-
+        <p>Animation couleur : </p>
+        <input type="checkbox" id="colorLoop" name="colorLoop" value="colorLoop" checked>
+        <p>Filtre Couleur : </p>
+        <input type="range" id="hue" name="hue" min="0" max="360" value="0">
         <input type="button" id="reset" name="reset" value="Reset">
     </div>
-    <canvas id="canvas" width="1700" height="900"></canvas>
+    <canvas id="canvas" class="colorLoop" width="1700" height="900"></canvas>
 
 
     <script src="assets/scripts/script.js"></script>

@@ -1,3 +1,7 @@
+:root{
+    --color: 5deg;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -11,8 +15,12 @@ canvas {
     transition: all 0.5s ease-in-out;
     transform: skew(0deg, 0deg);
     scale: 1;
-    animation: infinite color 2s linear;
+    filter: hue-rotate(var(--color));
 
+}
+
+.colorLoop{
+    animation: infinite color 2s linear;
 }
 
 /* canvas:hover {
