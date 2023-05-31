@@ -105,8 +105,7 @@
         var yMin = -1;
         var yMax = 1;
 
-        var xScale = width / (xMax - xMin);
-        var yScale = height / (yMax - yMin);
+
 
         var xCenter = (xMin + xMax) / 2;
         var yCenter = (yMin + yMax) / 2;
@@ -244,9 +243,6 @@
 
 
 
-            xScale = width / (xMax - xMin);
-            yScale = height / (yMax - yMin);
-
             xCenter = (xMin + xMax) / 2;
             yCenter = (yMin + yMax) / 2;
 
@@ -273,14 +269,10 @@
             let xCoord = xCenter + (x - width / 2) * xStep;
             let yCoord = yCenter + (y - height / 2) * yStep;
 
-
             xMin = xCoord - (xMax - xMin) / zoomFactor;
             xMax = xCoord + (xMax - xMin) / zoomFactor;
             yMin = yCoord - (yMax - yMin) / zoomFactor;
             yMax = yCoord + (yMax - yMin) / zoomFactor;
-
-            xScale = width / (xMax - xMin);
-            yScale = height / (yMax - yMin);
 
             xCenter = (xMin + xMax) / 2;
             yCenter = (yMin + yMax) / 2;
