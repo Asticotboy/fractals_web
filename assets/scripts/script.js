@@ -4,6 +4,7 @@ const ctx = canvas.getContext('2d');
 const zoomInput = document.getElementById('zoom');
 const resetButton = document.getElementById('reset');
 const iterInput = document.getElementById('iter');
+const fractaleInput = document.getElementById('fractale');
 
 
 
@@ -127,20 +128,20 @@ function draw(type = 'mandelbrot') {
 
 draw("julia");
 
-//si la touche A est appuyée
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'a') {
+// //si la touche A est appuyée
+// document.addEventListener('keydown', (e) => {
+//     if (e.key === 'a') {
 
-        julia = false;
-        reset();
-    }
-    if (e.key === 'z') {
+//         julia = false;
+//         reset();
+//     }
+//     if (e.key === 'z') {
 
-        julia = true;
-        reset();
-    }
+//         julia = true;
+//         reset();
+//     }
 
-});
+// });
 
 function reset() {
     if (julia == true) {
@@ -216,6 +217,17 @@ iterInput.addEventListener('change', (e) => {
     maxIterations = e.target.value;
     reset();
 });
+
+
+fractaleInput.addEventListener('change', (e) => {
+    if (e.target.value == 'julia') {
+        julia = true;
+    } else {
+        julia = false;
+    }
+    reset();
+}
+);
 
 
 

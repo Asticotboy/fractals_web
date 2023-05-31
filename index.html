@@ -11,8 +11,12 @@
 
 <body>
     <div>
-        <p>Appuyez sur la touche A pour afficher la fractale de Mandelbrot et sur la touche Z pour afficher la fractale
-            de Julia. </p>
+        <!-- <p>Appuyez sur la touche A pour afficher la fractale de Mandelbrot et sur la touche Z pour afficher la fractale
+            de Julia. </p> -->
+        <select name="fractale" id="fractale">
+            <option value="mandelbrot" >Mandelbrot</option>
+            <option value="julia" selected="selected">Julia</option>
+        </select>
         <p>Facteur de zoom : </p>
         <input type="number" id="zoom" name="zoom" min="1" value="2">
         <p> Click gauche pour zoomer </p>
